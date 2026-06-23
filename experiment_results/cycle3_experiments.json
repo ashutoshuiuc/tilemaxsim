@@ -1,0 +1,220 @@
+{
+  "dim_tiling": {
+    "d64": {
+      "d": 64,
+      "method": "V2-MQ",
+      "mean_ms": 0.11051733319958051,
+      "std_ms": 0.005078131059353283,
+      "throughput": 90483544.1689608,
+      "bw_gbs": 1482.8813839006211,
+      "bw_pct": 44.26511593733197,
+      "naive_ms": 0.6900016039609909,
+      "naive_throughput": 14492719.933684891,
+      "speedup_vs_naive": 6.24337906086581,
+      "correctness_max_diff": 0.00018310546875
+    },
+    "d128": {
+      "d": 128,
+      "method": "V2-MQ",
+      "mean_ms": 0.1642080008983612,
+      "std_ms": 0.002706459965975206,
+      "throughput": 60898372.4623116,
+      "bw_gbs": 1995.811350281597,
+      "bw_pct": 59.57645821736111,
+      "naive_ms": 1.0701776087284087,
+      "naive_throughput": 9344243.34656194,
+      "speedup_vs_naive": 6.517207461716861,
+      "correctness_max_diff": 0.0003662109375
+    },
+    "d256": {
+      "d": 256,
+      "method": "V2-MQ",
+      "mean_ms": 0.27637973229090373,
+      "std_ms": 0.0034155931154196428,
+      "throughput": 36182103.213974066,
+      "bw_gbs": 2371.4343254017663,
+      "bw_pct": 70.78908434035122,
+      "naive_ms": 1.8754831850528717,
+      "naive_throughput": 5331959.294382098,
+      "speedup_vs_naive": 6.785892617765583,
+      "correctness_max_diff": 0.0009765625
+    },
+    "d384": {
+      "d": 384,
+      "method": "V2-MQ",
+      "mean_ms": 0.37364906469980874,
+      "std_ms": 0.003713929711791905,
+      "throughput": 26763080.50719742,
+      "bw_gbs": 2631.090691448219,
+      "bw_pct": 78.54002064024534,
+      "naive_ms": 2.7056368231773376,
+      "naive_throughput": 3695987.545089884,
+      "speedup_vs_naive": 7.241117612193296
+    },
+    "d768": {
+      "d": 768,
+      "method": "V2-MQ",
+      "mean_ms": 0.6808490713437398,
+      "std_ms": 0.002525603928032534,
+      "throughput": 14687542.982564056,
+      "bw_gbs": 2887.819393099152,
+      "bw_pct": 86.20356397310901,
+      "naive_ms": 5.2030048131942745,
+      "naive_throughput": 1921966.3173558956,
+      "speedup_vs_naive": 7.641935683227857
+    }
+  },
+  "profiling": {
+    "B1000": {
+      "B": 1000,
+      "kernels": [
+        {
+          "name": "Activity Buffer Request",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 1648.319,
+          "count": 1
+        },
+        {
+          "name": "cudaLaunchKernel",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 8.437400000000002,
+          "count": 10
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native",
+          "cuda_time_us": 1.1425000000000183,
+          "cpu_time_us": 0.0,
+          "count": 10
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 3.99380000000001,
+          "count": 5
+        },
+        {
+          "name": "_flash_maxsim_v2_multiquery_kernel",
+          "cuda_time_us": 15.040199999999913,
+          "cpu_time_us": 0.0,
+          "count": 5
+        }
+      ],
+      "mean_ms": 0.0642688000202179,
+      "std_ms": 0.002485566461956113,
+      "bw_gbs": 510.048296991509,
+      "bw_pct": 15.225322298254001
+    },
+    "B10000": {
+      "B": 10000,
+      "kernels": [
+        {
+          "name": "Activity Buffer Request",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 1625.179,
+          "count": 1
+        },
+        {
+          "name": "cudaLaunchKernel",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 5.579599999999982,
+          "count": 10
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native",
+          "cuda_time_us": 1.1007999999999811,
+          "cpu_time_us": 0.0,
+          "count": 10
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 3.5060000000000855,
+          "count": 5
+        },
+        {
+          "name": "_flash_maxsim_v2_multiquery_kernel",
+          "cuda_time_us": 128.88260000000008,
+          "cpu_time_us": 0.0,
+          "count": 5
+        }
+      ],
+      "mean_ms": 0.17406592011451721,
+      "std_ms": 0.0020038250676007755,
+      "bw_gbs": 1882.782062016442,
+      "bw_pct": 56.2024496124311
+    },
+    "B100000": {
+      "B": 100000,
+      "kernels": [
+        {
+          "name": "Activity Buffer Request",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 1801.853,
+          "count": 1
+        },
+        {
+          "name": "cudaLaunchKernel",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 5.075733333333241,
+          "count": 15
+        },
+        {
+          "name": "void at::native::vectorized_elementwise_kernel<4, at::native",
+          "cuda_time_us": 1.1296000000000277,
+          "cpu_time_us": 0.0,
+          "count": 10
+        },
+        {
+          "name": "cuLaunchKernelEx",
+          "cuda_time_us": 0.0,
+          "cpu_time_us": 3.510299999999961,
+          "count": 10
+        },
+        {
+          "name": "_flash_maxsim_v2_multiquery_kernel",
+          "cuda_time_us": 587.0231000000001,
+          "cpu_time_us": 0.0,
+          "count": 10
+        }
+      ],
+      "mean_ms": 1.215838713645935,
+      "std_ms": 0.0029183715225323207,
+      "bw_gbs": 2695.430039542529,
+      "bw_pct": 80.46059819529937
+    }
+  },
+  "e2e_demo": {
+    "corpus_10000": {
+      "corpus_size": 10000,
+      "mean_ms": 1.781473622471094,
+      "std_ms": 6.755624960558882,
+      "throughput": 5613330.376527795,
+      "top_k": 10,
+      "memory_gb": 0.32768
+    },
+    "corpus_50000": {
+      "corpus_size": 50000,
+      "mean_ms": 0.7228927940130234,
+      "std_ms": 0.025805383189926763,
+      "throughput": 69166549.19525898,
+      "top_k": 10,
+      "memory_gb": 1.6384
+    },
+    "corpus_100000": {
+      "corpus_size": 100000,
+      "mean_ms": 1.3139999985694886,
+      "std_ms": 0.0032757858291641772,
+      "throughput": 76103500.84388655,
+      "top_k": 10,
+      "memory_gb": 3.2768
+    },
+    "corpus_500000": {
+      "corpus_size": 500000,
+      "mean_ms": 6.09214403629303,
+      "std_ms": 0.0639693023912719,
+      "throughput": 82072911.77315004,
+      "top_k": 10,
+      "memory_gb": 16.384
+    }
+  }
+}

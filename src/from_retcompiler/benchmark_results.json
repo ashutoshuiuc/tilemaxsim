@@ -1,0 +1,132 @@
+{
+  "maxsim": [
+    {
+      "name": "PyTorch-naive (n_docs=256)",
+      "n_queries": 1,
+      "n_docs": 256,
+      "latency_ms": 0.05645060009555891,
+      "throughput_qps": 17714.603534899747,
+      "peak_memory_mb": 72.2431640625,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-chunked (n_docs=256)",
+      "n_queries": 1,
+      "n_docs": 256,
+      "latency_ms": 0.24445230010314842,
+      "throughput_qps": 4090.7776264655427,
+      "peak_memory_mb": 69.4404296875,
+      "correct": true
+    },
+    {
+      "name": "Triton-compiled (n_docs=256)",
+      "n_queries": 1,
+      "n_docs": 256,
+      "latency_ms": 3.610313799799769,
+      "throughput_qps": 276.98423335264124,
+      "peak_memory_mb": 44.0107421875,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-naive (n_docs=1024)",
+      "n_queries": 1,
+      "n_docs": 1024,
+      "latency_ms": 0.10554720065556467,
+      "throughput_qps": 9474.434127943667,
+      "peak_memory_mb": 190.9033203125,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-chunked (n_docs=1024)",
+      "n_queries": 1,
+      "n_docs": 1024,
+      "latency_ms": 0.9334868998848833,
+      "throughput_qps": 1071.252312296315,
+      "peak_memory_mb": 170.85546875,
+      "correct": true
+    },
+    {
+      "name": "Triton-compiled (n_docs=1024)",
+      "n_queries": 1,
+      "n_docs": 1024,
+      "latency_ms": 6.557227700250223,
+      "throughput_qps": 152.50347337516433,
+      "peak_memory_mb": 78.01953125,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-chunked (n_docs=4096)",
+      "n_queries": 1,
+      "n_docs": 4096,
+      "latency_ms": 3.6188845999276964,
+      "throughput_qps": 276.3282366119051,
+      "peak_memory_mb": 574.87890625,
+      "correct": true
+    },
+    {
+      "name": "Triton-compiled (n_docs=4096)",
+      "n_queries": 1,
+      "n_docs": 4096,
+      "latency_ms": 6.84512360021472,
+      "throughput_qps": 146.08940004657208,
+      "peak_memory_mb": 212.0546875,
+      "correct": true
+    }
+  ],
+  "dot": [
+    {
+      "name": "PyTorch-dot (n_docs=1024)",
+      "n_queries": 1,
+      "n_docs": 1024,
+      "latency_ms": 0.010706700049922802,
+      "throughput_qps": 93399.4597156208,
+      "peak_memory_mb": 36.51220703125,
+      "correct": true
+    },
+    {
+      "name": "Triton-dot (n_docs=1024)",
+      "n_queries": 1,
+      "n_docs": 1024,
+      "latency_ms": 0.03739530002349056,
+      "throughput_qps": 26741.328438916953,
+      "peak_memory_mb": 33.51318359375,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-dot (n_docs=8192)",
+      "n_queries": 1,
+      "n_docs": 8192,
+      "latency_ms": 0.010314699829905294,
+      "throughput_qps": 96949.01611200659,
+      "peak_memory_mb": 68.07080078125,
+      "correct": true
+    },
+    {
+      "name": "Triton-dot (n_docs=8192)",
+      "n_queries": 1,
+      "n_docs": 8192,
+      "latency_ms": 0.03297679977549706,
+      "throughput_qps": 30324.34944591063,
+      "peak_memory_mb": 44.09521484375,
+      "correct": true
+    },
+    {
+      "name": "PyTorch-dot (n_docs=65536)",
+      "n_queries": 1,
+      "n_docs": 65536,
+      "latency_ms": 0.06902450004417915,
+      "throughput_qps": 14487.609462726274,
+      "peak_memory_mb": 320.53564453125,
+      "correct": true
+    },
+    {
+      "name": "Triton-dot (n_docs=65536)",
+      "n_queries": 1,
+      "n_docs": 65536,
+      "latency_ms": 0.04590339995047543,
+      "throughput_qps": 21784.878703514045,
+      "peak_memory_mb": 128.75146484375,
+      "correct": true
+    }
+  ]
+}

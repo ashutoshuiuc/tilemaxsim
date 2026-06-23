@@ -1,0 +1,41 @@
+{
+  "benchmark": "plaid_e2e_integration",
+  "index": "indices/beir-nfcorpus.split=dev.nbits=2",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "n_docs_in_index": 3633,
+  "original": {
+    "label": "Original PLAID",
+    "n_queries": 324,
+    "k": 10,
+    "mean_us": 3674.504154557247,
+    "median_us": 3678.7554854527116,
+    "p99_us": 4037.9683440551157,
+    "total_s": 1.1990993698127568,
+    "ndcg10": 0.008088579831154293,
+    "n_judged": 324,
+    "all_runs_mean_us": [
+      3941.677842737624,
+      3682.3418089131146,
+      3674.504154557247
+    ]
+  },
+  "flashmaxsim": {
+    "label": "TileMaxSim",
+    "n_queries": 324,
+    "k": 10,
+    "mean_us": 3669.703957756958,
+    "median_us": 3682.7014992013574,
+    "p99_us": 3886.0217365436256,
+    "total_s": 1.196867692982778,
+    "ndcg10": 0.008061716137904155,
+    "n_judged": 324,
+    "all_runs_mean_us": [
+      3694.014117138943,
+      3680.0824663383355,
+      3669.703957756958
+    ]
+  },
+  "ranking_agreement_pct": 82.4074074074074,
+  "e2e_speedup": 1.0013080610467617,
+  "note": "NOTE: Small index (few candidates per query) \u2014 scoring is a tiny fraction of pipeline time. Speedup is more visible at larger scale."
+}

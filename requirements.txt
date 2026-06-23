@@ -1,0 +1,9 @@
+# TileMaxSim - core dependencies
+# Reported results used Python 3.11, CUDA 12.4 on NVIDIA H100 80GB.
+torch>=2.6
+triton>=3.2
+numpy>=1.24
+# Optional: quality verification on MS MARCO / BEIR
+transformers>=4.40
+ir_datasets>=0.5
+psutil>=5.9

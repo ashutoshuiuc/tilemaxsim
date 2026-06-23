@@ -1,0 +1,68 @@
+{
+  "system": "WARP (Scheerer et al., SIGIR 2025)",
+  "dataset": "beir-nfcorpus",
+  "split": "dev",
+  "n_queries": 324,
+  "latency_runs": [
+    {
+      "mean_us": 88977.26608075225,
+      "median_us": 88700.11201361194,
+      "p99_us": 93275.72967507876,
+      "stage_breakdown_us": {
+        "Query Encoding": 85273.70588279066,
+        "Candidate Generation": 1800.1816890857838,
+        "top-k Precompute": 689.0274860240795,
+        "Decompression": 825.0872294108073,
+        "Build Matrix": 299.4912642019766
+      },
+      "total_tracked_us": 88972.13876983266
+    },
+    {
+      "mean_us": 88631.34148356758,
+      "median_us": 88383.52450402454,
+      "p99_us": 92276.06282569468,
+      "stage_breakdown_us": {
+        "Query Encoding": 84955.69229125977,
+        "Candidate Generation": 1776.1249601105112,
+        "top-k Precompute": 687.2805548302921,
+        "Decompression": 825.9518646899564,
+        "Build Matrix": 298.59719453034575
+      },
+      "total_tracked_us": 88625.81370789328
+    },
+    {
+      "mean_us": 88409.00658662891,
+      "median_us": 88184.97142056003,
+      "p99_us": 91399.14900646545,
+      "stage_breakdown_us": {
+        "Query Encoding": 84760.21039633104,
+        "Candidate Generation": 1763.920725127797,
+        "top-k Precompute": 683.9184113490729,
+        "Decompression": 817.8883128696018,
+        "Build Matrix": 296.9805105232898
+      },
+      "total_tracked_us": 88403.50089249788
+    }
+  ],
+  "quality": {
+    "ndcg_cut@5": 0.3502,
+    "ndcg_cut@10": 0.31873,
+    "ndcg_cut@50": 0.20392,
+    "ndcg_cut@100": 0.19547,
+    "map_cut@5": 0.07978,
+    "map_cut@10": 0.09872,
+    "map_cut@50": 0.09872,
+    "map_cut@100": 0.09872,
+    "recall@5": 0.10692,
+    "recall@10": 0.14667,
+    "recall@50": 0.14667,
+    "recall@100": 0.14667
+  },
+  "config": {
+    "nbits": 2,
+    "nprobe": 32,
+    "bound": 196,
+    "k": 10,
+    "num_threads": 1
+  }
+}
