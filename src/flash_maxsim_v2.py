@@ -31,7 +31,7 @@ def _flash_maxsim_v2_kernel(
     Iterates over all query tokens and document tiles.
     Accumulates the sum of per-query-token maxima in a register.
     """
-    batch_idx = tl.program_id(0)
+    batch_idx = tl.program_id(0).to(tl.int64)
 
     # Accumulator for final score (sum of maxes)
     score_acc = tl.zeros([], dtype=tl.float32)
@@ -39,7 +39,7 @@ def _flash_maxsim_v2_kernel(
     # Process each query token
     for q_idx in range(Nq):
         # Load query token: Q[q_idx, :] -> (d,)
-        q_offsets = tl.arange(0, d)
+        q_offsets = tl.arange(0, d).to(tl.int64)
         q_vec = tl.load(Q_ptr + q_idx * d + q_offsets).to(tl.float32)
 
         # Track max similarity for this query token
@@ -47,7 +47,7 @@ def _flash_maxsim_v2_kernel(
 
         # Iterate over document token tiles
         for d_start in range(0, Nd, BLOCK_Nd):
-            d_indices = d_start + tl.arange(0, BLOCK_Nd)
+            d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
             d_mask = d_indices < Nd
 
             # Load D[batch_idx, d_indices, :] -> (BLOCK_Nd, d)
@@ -86,15 +86,15 @@ def _flash_maxsim_v2_multiquery_kernel(
     This allows reusing document tiles across multiple query tokens,
     reducing total HBM reads by factor of BLOCK_Nq.
     """
-    batch_idx = tl.program_id(0)
-    q_block_idx = tl.program_id(1)  # which block of query tokens
+    batch_idx = tl.program_id(0).to(tl.int64)
+    q_block_idx = tl.program_id(1).to(tl.int64)  # which block of query tokens
 
     q_start = q_block_idx * BLOCK_Nq
-    q_indices = q_start + tl.arange(0, BLOCK_Nq)
+    q_indices = (q_start + tl.arange(0, BLOCK_Nq)).to(tl.int64)
     q_mask = q_indices < Nq
 
     # Load BLOCK_Nq query tokens: (BLOCK_Nq, d)
-    k_offsets = tl.arange(0, d)
+    k_offsets = tl.arange(0, d).to(tl.int64)
     q_ptrs = Q_ptr + q_indices[:, None] * d + k_offsets[None, :]
     q_tile = tl.load(q_ptrs, mask=q_mask[:, None], other=0.0).to(tl.float32)
 
@@ -103,7 +103,7 @@ def _flash_maxsim_v2_multiquery_kernel(
 
     # Iterate over document token tiles
     for d_start in range(0, Nd, BLOCK_Nd):
-        d_indices = d_start + tl.arange(0, BLOCK_Nd)
+        d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
         d_mask_1d = d_indices < Nd
 
         # Load D[batch_idx, d_indices, :] -> (BLOCK_Nd, d)
@@ -147,11 +147,11 @@ def _flash_maxsim_v2_mq_dimtile_kernel(
     embedding dimension. For each doc-token tile, we accumulate partial
     dot products across d-tiles before computing the max.
     """
-    batch_idx = tl.program_id(0)
-    q_block_idx = tl.program_id(1)
+    batch_idx = tl.program_id(0).to(tl.int64)
+    q_block_idx = tl.program_id(1).to(tl.int64)
 
     q_start = q_block_idx * BLOCK_Nq
-    q_indices = q_start + tl.arange(0, BLOCK_Nq)
+    q_indices = (q_start + tl.arange(0, BLOCK_Nq)).to(tl.int64)
     q_mask = q_indices < Nq
 
     # Running max per query token: (BLOCK_Nq,)
@@ -159,14 +159,14 @@ def _flash_maxsim_v2_mq_dimtile_kernel(
 
     # Iterate over document token tiles
     for nd_start in range(0, Nd, BLOCK_Nd):
-        nd_indices = nd_start + tl.arange(0, BLOCK_Nd)
+        nd_indices = (nd_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
         nd_mask = nd_indices < Nd
 
         # Accumulate dot products across d-tiles: (BLOCK_Nq, BLOCK_Nd)
         sim_acc = tl.zeros([BLOCK_Nq, BLOCK_Nd], dtype=tl.float32)
 
         for k_start in range(0, d, BLOCK_d):
-            k_offsets = k_start + tl.arange(0, BLOCK_d)
+            k_offsets = (k_start + tl.arange(0, BLOCK_d)).to(tl.int64)
             k_mask = k_offsets < d
 
             # Load Q tile: (BLOCK_Nq, BLOCK_d)
