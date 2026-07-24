@@ -54,7 +54,8 @@ def _flash_maxsim_fwd_kernel(
 
     # Iterate over document token tiles
     for d_start in range(0, Nd, BLOCK_Nd):
-        d_indices = d_start + tl.arange(0, BLOCK_Nd)  # (BLOCK_Nd,)
+        # int64 so d_indices * d cannot overflow signed int32 for large Nd
+        d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)  # (BLOCK_Nd,)
         d_mask = d_indices < Nd
 
         # Compute dot products between this query token and document token tile
@@ -106,21 +107,21 @@ def _flash_maxsim_batched_kernel(
     Batched version: each program handles one (batch, query_token) pair.
     Final reduction (sum over query tokens) done in a separate small kernel.
     """
-    batch_idx = tl.program_id(1)
+    batch_idx = tl.program_id(1).to(tl.int64)
     q_idx = tl.program_id(0)
 
     if q_idx >= Nq:
         return
 
-    # Offset into batch
+    # Offset into batch (int64 to avoid signed int32 overflow on large batches)
     Q_batch = Q_ptr + batch_idx * Nq * d
     D_batch = D_ptr + batch_idx * Nd * d
 
     running_max = tl.full([], value=float('-inf'), dtype=tl.float32)
-    q_offsets = tl.arange(0, BLOCK_d)
+    q_offsets = tl.arange(0, BLOCK_d).to(tl.int64)
 
     for d_start in range(0, Nd, BLOCK_Nd):
-        d_indices = d_start + tl.arange(0, BLOCK_Nd)
+        d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
         d_mask = d_indices < Nd
         dots = tl.zeros([BLOCK_Nd], dtype=tl.float32)
 

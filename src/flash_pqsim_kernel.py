@@ -93,7 +93,8 @@ def _flash_pqsim_score_kernel(
     running_max = tl.full([], value=float('-inf'), dtype=tl.float32)
 
     for d_start in range(0, Nd, BLOCK_Nd):
-        d_indices = d_start + tl.arange(0, BLOCK_Nd)
+        # int64 so d_indices * M cannot overflow signed int32 for large Nd
+        d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
         d_mask = d_indices < Nd
 
         # Accumulate score for each document in this tile
@@ -136,7 +137,7 @@ def _flash_pqsim_batched_score_kernel(
 ):
     """Batched version: handles multiple documents."""
     q_idx = tl.program_id(0)
-    batch_idx = tl.program_id(1)
+    batch_idx = tl.program_id(1).to(tl.int64)
 
     if q_idx >= Nq:
         return
@@ -144,7 +145,8 @@ def _flash_pqsim_batched_score_kernel(
     running_max = tl.full([], value=float('-inf'), dtype=tl.float32)
 
     for d_start in range(0, Nd, BLOCK_Nd):
-        d_indices = d_start + tl.arange(0, BLOCK_Nd)
+        # int64 to avoid signed int32 overflow in batch_idx * Nd * M on large batches
+        d_indices = (d_start + tl.arange(0, BLOCK_Nd)).to(tl.int64)
         d_mask = d_indices < Nd
 
         scores = tl.zeros([BLOCK_Nd], dtype=tl.float32)
